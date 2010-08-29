@@ -1,0 +1,14 @@
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+
+OPENTYRIAN_SRC := $(wildcard $(LOCAL_PATH)/*.c)
+OPENTYRIAN_INCLUDES := $(wildcard $(LOCAL_PATH)/*.h)
+
+LOCAL_MODULE := opentyrian
+LOCAL_SRC_FILES := $(OPENTYRIAN_SRC:$(LOCAL_PATH)/%=%)
+LOCAL_C_INCLUDES := $(OPENTYRIAN_INCLUDES:$(LOCAL_PATH)/%=%)
+LOCAL_CFLAGS := -std=c99
+LOCAL_LDLIBS := -llog
+
+include $(BUILD_SHARED_LIBRARY)
