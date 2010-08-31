@@ -52,7 +52,7 @@ JNIEXPORT void JNICALL Java_com_intervigil_gltest_TutorialView_nativeResume
  * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_com_intervigil_gltest_TutorialView_nativeHandleKeyEvent
-  (JNIEnv *, jclass, jint);
+  (JNIEnv *, jclass);
 
 #ifdef __cplusplus
 }
