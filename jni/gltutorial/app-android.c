@@ -15,7 +15,7 @@ Java_com_intervigil_gltest_TutorialRenderer_nativeResize( JNIEnv* env, jclass cl
 {
     sWindowWidth  = w;
     sWindowHeight = h;
-    __android_log_print(ANDROID_LOG_INFO, "SanAngeles", "resize w=%d h=%d", w, h);
+    __android_log_print(ANDROID_LOG_INFO, "GLTutorial", "resize w=%d h=%d", w, h);
 }
 
 void
