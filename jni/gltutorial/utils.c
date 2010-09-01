@@ -109,7 +109,7 @@ GLuint loadTextureFromPNG(const char* filename, int* width, int* height) {
   int rowbytes = png_get_rowbytes(png_ptr, info_ptr);
 
   // Allocate the image_data as a big block, to be given to opengl
-  png_byte *image_data = (png_byte*) malloc(sizeof(png_byte) * rowbytes * height);
+  png_byte *image_data = (png_byte*) malloc(sizeof(png_byte) * rowbytes * *height);
   if (!image_data) {
     //clean up memory and close stuff
     png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
@@ -119,7 +119,7 @@ GLuint loadTextureFromPNG(const char* filename, int* width, int* height) {
   }
 
   //row_pointers is for pointing to image_data for reading the png with libpng
-  png_bytep *row_pointers = (png_bytep*) malloc(sizeof(png_bytep) * height);
+  png_bytep *row_pointers = (png_bytep*) malloc(sizeof(png_bytep) * *height);
   if (!row_pointers) {
     //clean up memory and close stuff
     png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);

@@ -4,7 +4,6 @@
 #include <android/log.h>
 #include "stars.h"
 #include "utils.h"
-#include "def.h"
 
 int twinkle;
 star stars[NUM_STARS];

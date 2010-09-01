@@ -6,9 +6,14 @@ GLTUTORIAL_SRC := $(wildcard $(LOCAL_PATH)/*.c)
 GLTUTORIAL_INCLUDES := $(wildcard $(LOCAL_PATH)/*.h)
 
 LOCAL_MODULE := gltutorial
+
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../libzip/ $(LOCAL_PATH)/../libpng/
+LOCAL_STATIC_LIBRARIES := libzip libpng
+
+LOCAL_CFLAGS := -DANDROID_NDK -std=c99 -Wno-psabi
+
 LOCAL_SRC_FILES := $(GLTUTORIAL_SRC:$(LOCAL_PATH)/%=%)
-LOCAL_C_INCLUDES := $(GLTUTORIAL_INCLUDES:$(LOCAL_PATH)/%=%) $(LOCAL_PATH)/../libzip/ $(LOCAL_PATH)/../libpng/
-LOCAL_CFLAGS := -DANDROID_NDK -std=c99
-LOCAL_LDLIBS := -lGLESv1_CM -llog -lz
+
+LOCAL_LDLIBS := -lGLESv1_CM -ldl -llog -lz
 
 include $(BUILD_SHARED_LIBRARY)
