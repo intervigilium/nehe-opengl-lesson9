@@ -9,7 +9,7 @@
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_com_intervigil_gltest_TutorialRenderer_nativeInit
-  (JNIEnv *, jclass);
+  (JNIEnv *, jclass, jstring);
 
 /*
  * Class:     com_intervigil_gltest_TutorialRenderer

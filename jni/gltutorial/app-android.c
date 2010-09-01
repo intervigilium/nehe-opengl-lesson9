@@ -8,10 +8,23 @@
 
 struct zip* APKArchive;
 
+static void loadAPK (const char* apkPath) {
+	LOGI("Loading APK %s", apkPath);
+	APKArchive = zip_open(apkPath, 0, NULL);
+	if (APKArchive == NULL) {
+		LOGE("Error loading APK");
+		return;
+	}
+}
+
+
 /* Call to initialize the graphics state */
 void
-Java_com_intervigil_gltest_TutorialRenderer_nativeInit( JNIEnv* env, jclass clazz )
+Java_com_intervigil_gltest_TutorialRenderer_nativeInit( JNIEnv* env, jclass clazz, jstring apkPath )
 {
+	jboolean isCopy;
+	const char* str = (*env)->GetStringUTFChars(env, apkPath, &isCopy);
+	loadAPK(str);
 	initGL();
 }
 

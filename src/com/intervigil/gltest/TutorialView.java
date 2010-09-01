@@ -14,7 +14,7 @@ public class TutorialView extends GLSurfaceView {
 	
 	public TutorialView(Context context) {
 		super(context);
-		mRenderer = new TutorialRenderer();
+		mRenderer = new TutorialRenderer(context);
 		setRenderer(mRenderer);
 	}
 	
