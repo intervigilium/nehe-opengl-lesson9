@@ -31,7 +31,17 @@ Java_com_intervigil_gltest_TutorialRenderer_nativeInit( JNIEnv* env, jclass claz
 void
 Java_com_intervigil_gltest_TutorialRenderer_nativeResize( JNIEnv* env, jclass clazz, jint w, jint h )
 {
-    __android_log_print(ANDROID_LOG_INFO, "GLTutorial", "resize w=%d h=%d", w, h);
+	LOGI("nativeResize (%i,%i)", w, h);
+
+	if(h == 0)
+		h = 1;
+
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	const float ratio = w/(float)h;
+	glLoadIdentity();
+	glOrthof(0, 15, 15/ratio, 0, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void

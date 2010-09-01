@@ -1,17 +1,34 @@
 
 #include <stdlib.h>
 #include <GLES/gl.h>
-#include <android/log.h>
+#include <GLES/glext.h>
+#include "def.h"
 #include "stars.h"
 #include "utils.h"
 
-int twinkle;
-star stars[NUM_STARS];
 
-GLfloat zoom = -15.0f;
-GLfloat tilt = 90.0f;
-GLfloat spin;
-GLuint textures[1];
+static star stars[NUM_STARS];
+
+static GLfloat zoom = -15.0f;
+static GLfloat tilt = 90.0f;
+static GLfloat spin;
+static GLuint textures[1];
+
+
+GLfloat vertices[12] = {
+	-1.0f, -1.0f, 0.0f, 	//Bottom Left
+	1.0f, -1.0f, 0.0f, 		//Bottom Right
+	-1.0f, 1.0f, 0.0f,	 	//Top Left
+	1.0f, 1.0f, 0.0f 		//Top Right
+};
+
+GLfloat texCoords[8] = {
+	0.0f, 0.0f,
+	1.0f, 0.0f,
+	0.0f, 1.0f,
+	1.0f, 1.0f,
+};
+
 
 int loadGLTextures() {
 	int width = 0;
@@ -39,9 +56,10 @@ int initGL() {
 			stars[i].g = rand() % 256;
 			stars[i].b = rand() % 256;
 		}
-
+		LOGI("GL initialized");
 		return 1;
 	} else {
+		LOGE("Unable to load textures");
 		return 0;
 	}
 }
@@ -61,14 +79,22 @@ int drawGLScene() {
 		glRotatef(-stars[i].angle, 0.0f, 1.0f, 0.0f);
 		glRotatef(-tilt, 1.0f, 0.0f, 0.0f);
 
-		if (twinkle) {
+		if (TWINKLE_ON) {
 			glColor4ub(stars[NUM_STARS - i].r, stars[NUM_STARS - i].g, stars[NUM_STARS - i].b, 255);
 			// draw twinkle here
+			//glDrawTexfOES(0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+			glVertexPointer(3, GL_FLOAT, 0, vertices);
+			glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		}
 		// rotate the uncolored star here
 		glRotatef(spin, 0.0f, 0.0f, 1.0f);
 		glColor4ub(stars[i].r, stars[i].g, stars[i].b, 255);
 		// draw star here
+		//glDrawTexfOES(0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+		glVertexPointer(3, GL_FLOAT, 0, vertices);
+		glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 		spin += 0.01f;
 		stars[i].angle += ((float) i)/NUM_STARS;
