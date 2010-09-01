@@ -16,7 +16,7 @@ GLuint textures[1];
 int loadGLTextures() {
 	int width = 0;
 	int height = 0;
-	textures[0] = loadTextureFromPNG("star.png", &width, &height);
+	textures[0] = loadTextureFromPNG("res/drawable/star.png", &width, &height);
 
 	return textures[0];
 }
