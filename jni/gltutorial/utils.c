@@ -19,7 +19,7 @@
  *           should be validated by the client of this function.
  *
  */
-zip_file* file;
+struct zip_file* file;
 
 void png_zip_read(png_structp png_ptr, png_bytep data, png_size_t length) {
   zip_fread(file, data, length);

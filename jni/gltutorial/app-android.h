@@ -3,9 +3,6 @@
 
 #include <jni.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 /*
  * Class:     com_intervigil_gltest_TutorialRenderer
  * Method:    nativeInit
@@ -53,10 +50,6 @@ JNIEXPORT void JNICALL Java_com_intervigil_gltest_TutorialView_nativeResume
  */
 JNIEXPORT void JNICALL Java_com_intervigil_gltest_TutorialView_nativeHandleKeyEvent
   (JNIEnv *, jclass);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif // !APP_ANDROID_H_INCLUDED
 

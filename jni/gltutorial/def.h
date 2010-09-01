@@ -4,7 +4,7 @@
 #include <android/log.h>
 #include <zip.h>
 
-extern zip* APKArchive;
+extern struct zip* APKArchive;
 
 #define STRINGIFY(x) #x
 #define LOG_TAG    __FILE__ ":" STRINGIFY(__LINE__)

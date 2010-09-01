@@ -1,8 +1,12 @@
 
 #include <GLES/gl.h>
 #include <android/log.h>
+#include <zip.h>
 #include "app-android.h"
+#include "def.h"
 #include "stars.h"
+
+struct zip* APKArchive;
 
 /* Call to initialize the graphics state */
 void
