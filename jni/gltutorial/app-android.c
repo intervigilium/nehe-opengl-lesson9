@@ -32,16 +32,20 @@ void
 Java_com_intervigil_gltest_TutorialRenderer_nativeResize( JNIEnv* env, jclass clazz, jint w, jint h )
 {
 	LOGI("nativeResize (%i,%i)", w, h);
+	if (h == 0) {                                    	// Prevent A Divide By Zero By
+		h = 1;                                       	// Making Height Equal One
+	}
 
-	if(h == 0)
-		h = 1;
+	glViewport(0, 0, w, h);                       		// Reset The Current Viewport
 
-	glViewport(0, 0, w, h);
-	glMatrixMode(GL_PROJECTION);
-	const float ratio = w/(float)h;
+	glMatrixMode(GL_PROJECTION);                        // Select The Projection Matrix
+	glLoadIdentity();                                   // Reset The Projection Matrix
+
+	// Calculate The Aspect Ratio Of The Window
+	gluPerspective(45.0f, ((GLfloat) w)/h, 0.1f, 100.0f);
+
+	glMatrixMode(GL_MODELVIEW);                         // Select The Modelview Matrix
 	glLoadIdentity();
-	glOrthof(0, 15, 15/ratio, 0, -1, 1);
-	glMatrixMode(GL_MODELVIEW);
 }
 
 void
