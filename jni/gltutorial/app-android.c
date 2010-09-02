@@ -8,6 +8,22 @@
 
 struct zip* APKArchive;
 
+#undef PI
+#define PI 3.1415926535897932f
+
+static void gluPerspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat zFar) {
+    GLfloat xmin, xmax, ymin, ymax;
+
+    ymax = zNear * (GLfloat)tan(fovy * PI / 360);
+    ymin = -ymax;
+    xmin = ymin * aspect;
+    xmax = ymax * aspect;
+
+    glFrustumx((GLfixed)(xmin * 65536), (GLfixed)(xmax * 65536),
+               (GLfixed)(ymin * 65536), (GLfixed)(ymax * 65536),
+               (GLfixed)(zNear * 65536), (GLfixed)(zFar * 65536));
+}
+
 static void loadAPK (const char* apkPath) {
 	LOGI("Loading APK %s", apkPath);
 	APKArchive = zip_open(apkPath, 0, NULL);
