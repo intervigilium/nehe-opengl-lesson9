@@ -29,11 +29,16 @@
 #include "def.h"
 #include "stars.h"
 
+/* Handle to our textures, loaded by the Android system */
 GLuint* texturePtr;
 
 #undef PI
 #define PI 3.1415926535897932f
 
+/*
+ * Android NDK does not provide GLU headers, so we do not have access to this function.
+ * We use this function to get the window aspect ratio.
+ */
 static void gluPerspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat zFar) {
     GLfloat xmin, xmax, ymin, ymax;
 
@@ -47,7 +52,6 @@ static void gluPerspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat 
                (GLfixed)(zNear * 65536), (GLfixed)(zFar * 65536));
 }
 
-/* Call to initialize the graphics state */
 void
 Java_com_intervigil_gltest_TutorialRenderer_nativeInit( JNIEnv* env, jclass clazz, jintArray textures )
 {
@@ -97,14 +101,12 @@ Java_com_intervigil_gltest_TutorialView_nativeCleanup( JNIEnv* env, jclass clazz
 	}
 }
 
-/* Call to render the next GL frame */
 void
 Java_com_intervigil_gltest_TutorialRenderer_nativeRender( JNIEnv* env, jclass clazz )
 {
 	drawGLScene();
 }
 
-/* Handles key events in native code */
 void
 Java_com_intervigil_gltest_TutorialView_nativeHandleKeyEvent( JNIEnv* env, jclass clazz )
 {
