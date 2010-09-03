@@ -22,35 +22,15 @@
  */
 
 #include <stdlib.h>
-#include <math.h>
 #include <GLES/gl.h>
 #include <android/log.h>
 #include "app-android.h"
 #include "def.h"
 #include "stars.h"
+#include "gl-extras.h"
 
 /* Handle to our textures, loaded by the Android system */
 GLuint* texturePtr;
-
-#undef PI
-#define PI 3.1415926535897932f
-
-/*
- * Android NDK does not provide GLU headers, so we do not have access to this function.
- * We use this function to get the window aspect ratio.
- */
-static void gluPerspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat zFar) {
-    GLfloat xmin, xmax, ymin, ymax;
-
-    ymax = zNear * (GLfloat)tan(fovy * PI / 360);
-    ymin = -ymax;
-    xmin = ymin * aspect;
-    xmax = ymax * aspect;
-
-    glFrustumx((GLfixed)(xmin * 65536), (GLfixed)(xmax * 65536),
-               (GLfixed)(ymin * 65536), (GLfixed)(ymax * 65536),
-               (GLfixed)(zNear * 65536), (GLfixed)(zFar * 65536));
-}
 
 void
 Java_com_intervigil_gltest_TutorialRenderer_nativeInit( JNIEnv* env, jclass clazz, jintArray textures )
