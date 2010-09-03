@@ -31,6 +31,10 @@ public class TutorialView extends GLSurfaceView {
     	super.onResume();
     	nativeResume();
     }
+    
+    public void onDestroy() {
+    	nativeCleanup();
+    }
 
 	@Override
     public boolean onTrackballEvent(MotionEvent event) {
@@ -56,5 +60,6 @@ public class TutorialView extends GLSurfaceView {
     
     private static native void nativePause();
     private static native void nativeResume();
+    private static native void nativeCleanup();
     private static native void nativeHandleKeyEvent(int keyCode);
 }

@@ -12,8 +12,7 @@ static star stars[NUM_STARS];
 static GLfloat zoom = -15.0f;
 static GLfloat tilt = 90.0f;
 static GLfloat spin;
-static GLuint textures[1];
-
+static GLuint* textures;
 
 GLfloat vertices[12] = {
 	-1.0f, -1.0f, 0.0f, 	//Bottom Left
@@ -29,17 +28,9 @@ GLfloat texCoords[8] = {
 	1.0f, 1.0f,
 };
 
-
-int loadGLTextures() {
-	int width = 0;
-	int height = 0;
-	textures[0] = loadTextureFromPNG("res/drawable/star.png", &width, &height);
-
-	return textures[0];
-}
-
-int initGL() {
-	if (loadGLTextures()) {
+int initGL(GLuint* texturePtr) {
+	if (texturePtr) {
+		textures = texturePtr;
 		// do the GL initialization stuff
 		glEnable(GL_TEXTURE_2D); 							// Enable Texture Mapping
 		glShadeModel(GL_SMOOTH); 							// Enable Smooth Shading

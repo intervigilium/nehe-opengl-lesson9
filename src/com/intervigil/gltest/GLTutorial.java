@@ -29,6 +29,7 @@ public class GLTutorial extends Activity {
     protected void onDestroy() {
     	Log.i(CLASS_NAME, "onDestroy()");
     	super.onDestroy();
+    	mGLSurfaceView.onDestroy();
     }
     
     @Override

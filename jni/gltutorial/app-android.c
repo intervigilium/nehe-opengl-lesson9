@@ -1,4 +1,5 @@
-
+#include <stdlib.h>
+#include <math.h>
 #include <GLES/gl.h>
 #include <android/log.h>
 #include <zip.h>
@@ -7,6 +8,7 @@
 #include "stars.h"
 
 struct zip* APKArchive;
+GLuint* texturePtr;
 
 #undef PI
 #define PI 3.1415926535897932f
@@ -24,24 +26,14 @@ static void gluPerspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat 
                (GLfixed)(zNear * 65536), (GLfixed)(zFar * 65536));
 }
 
-static void loadAPK (const char* apkPath) {
-	LOGI("Loading APK %s", apkPath);
-	APKArchive = zip_open(apkPath, 0, NULL);
-	if (APKArchive == NULL) {
-		LOGE("Error loading APK");
-		return;
-	}
-}
-
-
 /* Call to initialize the graphics state */
 void
-Java_com_intervigil_gltest_TutorialRenderer_nativeInit( JNIEnv* env, jclass clazz, jstring apkPath )
+Java_com_intervigil_gltest_TutorialRenderer_nativeInit( JNIEnv* env, jclass clazz, jintArray textures )
 {
-	jboolean isCopy;
-	const char* str = (*env)->GetStringUTFChars(env, apkPath, &isCopy);
-	loadAPK(str);
-	initGL();
+	int size = (*env)->GetArrayLength(env, textures);
+	texturePtr = (GLuint*) malloc(sizeof(GLuint) * size);
+	(*env)->GetIntArrayRegion(env, textures, 0, size, texturePtr);
+	initGL(texturePtr);
 }
 
 void
@@ -74,6 +66,14 @@ void
 Java_com_intervigil_gltest_TutorialView_nativeResume( JNIEnv* env, jclass clazz )
 {
 
+}
+
+void
+Java_com_intervigil_gltest_TutorialView_nativeCleanup( JNIEnv* env, jclass clazz )
+{
+	if (texturePtr) {
+		free(texturePtr);
+	}
 }
 
 /* Call to render the next GL frame */
