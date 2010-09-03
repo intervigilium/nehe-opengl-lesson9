@@ -2,7 +2,7 @@
 #define STARS_H_
 
 #define NUM_STARS 50
-#define TWINKLE_ON 1
+#define TWINKLE_ON 0
 
 typedef struct {
 	int r;
