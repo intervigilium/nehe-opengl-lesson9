@@ -2,9 +2,6 @@
 #define DEF_H_
 
 #include <android/log.h>
-#include <zip.h>
-
-extern struct zip* APKArchive;
 
 #define STRINGIFY(x) #x
 #define LOG_TAG    __FILE__ ":" STRINGIFY(__LINE__)

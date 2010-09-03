@@ -4,7 +4,6 @@
 #include <GLES/glext.h>
 #include "def.h"
 #include "stars.h"
-#include "utils.h"
 
 
 static star stars[NUM_STARS];
